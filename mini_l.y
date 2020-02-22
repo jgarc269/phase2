@@ -32,8 +32,8 @@
 /* Grammer Rules */
 
 
-prog_start:	Function prog_start {printf("prog_start -> Function\n");}
-			| %empty {printf("prog_start -> EPSILON\n");}
+prog_start:	%empty {printf("prog_start -> EPSILON\n");}
+		| Function prog_start {printf("prog_start -> Function prog_start\n");}
 			;
 
 Function: 		FUNCTION Ident SEMICOLON BEGIN_PARAMS Declaration_loop SEMICOLON END_PARAMS BEGIN_LOCALS Declaration_loop SEMICOLON END_LOCALS BEGIN_BODY Statement_loop SEMICOLON END_BODY{printf("Function -> FUNCTION Ident SEMICOLON BEGIN_PARAMS Declaration_loop END_PARAMS BEGIN_LOCALS Declaration_loop END_LOCALS BEGIN_BODY Statement_loop END_BODY\n");}
@@ -44,7 +44,7 @@ Declaration_loop: 	Declaration SEMICOLON Declaration_loop {printf("Declaration_l
 					;
 
 Declaration:	Ident_loop COLON INTEGER {printf("Declaration -> Ident_loop COLON INTEGER\n");}
-				| Ident_loop COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER {printf("Declaration -> Ident_loop COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER\n");}
+				| Ident_loop COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER {printf("Declaration -> Ident_loop COLON ARRAY L_SQUARE_BRACKET NUMBER %d R_SQUARE_BRACKET OF INTEGER\n", $5);}
 				;
 
 Ident_loop: 	Ident {printf("Ident_loop -> Ident \n");}
@@ -140,10 +140,10 @@ Multiplicative-Expr:		Term  {printf("Multiplicative-Expr -> Term\n");}
 							;
 
 Term:		 Var {printf("Term -> Var\n");}
-			| NUMBER {printf("Term -> NUMBER\n");}
+			| NUMBER {printf("Term -> NUMBER %d\n", $1);}
 			| L_PAREN Expression R_PAREN {printf("Term -> L_PAREN Expression R_PAREN\n");}
 			| SUB Var {printf("Term -> SUB Var\n");}
-			| SUB NUMBER {printf("Term -> SUBB NUMBER\n");}
+			| SUB NUMBER {printf("Term -> SUB NUMBER %d\n", $2);}
 			| SUB L_PAREN Expression R_PAREN {printf("Term -> SUB L_PAREN Expression R_PAREN\n");}
 			| Ident L_PAREN Expression_loop R_PAREN {printf("Term -> Ident L_PAREN Expression R_PAREN\n");}
 			;

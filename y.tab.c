@@ -570,7 +570,7 @@ static const yytype_int16 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       3,     0,     0,     3,    67,     0,     1,     2,     0,     6,
+       2,     0,     0,     2,    67,     0,     1,     3,     0,     6,
        0,     0,     0,     9,     0,     6,     0,     0,     0,     5,
        7,     0,    10,     6,     0,     0,     0,     0,     0,     0,
        0,     0,     8,     0,     0,     0,     0,    27,     0,     0,
@@ -688,7 +688,7 @@ static const yytype_uint8 yyr1[] =
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     2,     0,    15,     3,     0,     3,     8,     1,
+       0,     2,     0,     2,    15,     3,     0,     3,     8,     1,
        3,     1,     1,     1,     1,     1,     1,     1,     1,     1,
        3,     6,     6,     7,    14,     2,     2,     1,     2,     3,
        2,     2,     0,     1,     1,     3,     2,     1,     3,     1,
@@ -1372,13 +1372,13 @@ yyreduce:
     {
         case 2:
 #line 35 "mini_l.y" /* yacc.c:1646  */
-    {printf("prog_start -> Function\n");}
+    {printf("prog_start -> EPSILON\n");}
 #line 1377 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
 #line 36 "mini_l.y" /* yacc.c:1646  */
-    {printf("prog_start -> EPSILON\n");}
+    {printf("prog_start -> Function prog_start\n");}
 #line 1383 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1408,7 +1408,7 @@ yyreduce:
 
   case 8:
 #line 47 "mini_l.y" /* yacc.c:1646  */
-    {printf("Declaration -> Ident_loop COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER\n");}
+    {printf("Declaration -> Ident_loop COLON ARRAY L_SQUARE_BRACKET NUMBER %d R_SQUARE_BRACKET OF INTEGER\n", (yyvsp[-3].dval));}
 #line 1413 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1714,7 +1714,7 @@ yyreduce:
 
   case 59:
 #line 143 "mini_l.y" /* yacc.c:1646  */
-    {printf("Term -> NUMBER\n");}
+    {printf("Term -> NUMBER %d\n", (yyvsp[0].dval));}
 #line 1719 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1732,7 +1732,7 @@ yyreduce:
 
   case 62:
 #line 146 "mini_l.y" /* yacc.c:1646  */
-    {printf("Term -> SUBB NUMBER\n");}
+    {printf("Term -> SUB NUMBER %d\n", (yyvsp[0].dval));}
 #line 1737 "y.tab.c" /* yacc.c:1646  */
     break;
 

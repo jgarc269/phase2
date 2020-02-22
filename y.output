@@ -21,8 +21,8 @@ Grammar
 
     0 $accept: prog_start $end
 
-    1 prog_start: Function prog_start
-    2           | %empty
+    1 prog_start: %empty
+    2           | Function prog_start
 
     3 Function: FUNCTION Ident SEMICOLON BEGIN_PARAMS Declaration_loop SEMICOLON END_PARAMS BEGIN_LOCALS Declaration_loop SEMICOLON END_LOCALS BEGIN_BODY Statement_loop SEMICOLON END_BODY
 
@@ -176,9 +176,9 @@ Nonterminals, with rules where they appear
 $accept (52)
     on left: 0
 prog_start (53)
-    on left: 1 2, on right: 0 1
+    on left: 1 2, on right: 0 2
 Function (54)
-    on left: 3, on right: 1
+    on left: 3, on right: 2
 Declaration_loop (55)
     on left: 4 5, on right: 3 4
 Declaration (56)
@@ -239,7 +239,7 @@ State 0
 
     FUNCTION  shift, and go to state 1
 
-    $default  reduce using rule 2 (prog_start)
+    $default  reduce using rule 1 (prog_start)
 
     prog_start  go to state 2
     Function    go to state 3
@@ -263,11 +263,11 @@ State 2
 
 State 3
 
-    1 prog_start: Function . prog_start
+    2 prog_start: Function . prog_start
 
     FUNCTION  shift, and go to state 1
 
-    $default  reduce using rule 2 (prog_start)
+    $default  reduce using rule 1 (prog_start)
 
     prog_start  go to state 7
     Function    go to state 3
@@ -296,9 +296,9 @@ State 6
 
 State 7
 
-    1 prog_start: Function prog_start .
+    2 prog_start: Function prog_start .
 
-    $default  reduce using rule 1 (prog_start)
+    $default  reduce using rule 2 (prog_start)
 
 
 State 8
