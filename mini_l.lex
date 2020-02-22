@@ -3,6 +3,7 @@
 	Phase 2
 */
 %{   
+   #include "y.tab.h"
    int currLine = 1;
    int currPos = 1;
 %}
@@ -69,13 +70,15 @@ IDENT  {LETTERS}(_?({LETTERS}|{DIGIT}))*
 "]"		{printf("R_SQUARE_BRACKET\n"); currPos += yyleng;}
 ":="		{printf("ASSIGN\n"); currPos += yyleng;}
 
-{IDENT}		 {printf("IDENT %s\n", yytext); currPos += yyleng;}
+{IDENT}		 {currPos += yyleng; yylval.ival = atof(yytext); return IDENT;}
+/*{yylval.ival = yytext; return IDENT; currPos += yyleng;}*/
 
 {DIGIT}+{IDENT}  {printf("Error at line %d, column %d: identifier \"%s\" must begin with a letter\n", currLine, currPos, yytext); exit(0);}
 
 {IDENT}(_)	 {printf("Error at line %d, column %d: identifier \"%s\" cannot end with an underscore\n", currLine, currPos, yytext); exit(0);}
 
-{DIGIT}+      				 {printf("NUMBER %s\n", yytext); currPos += yyleng;}
+{DIGIT}+     {currPos += yyleng; yylval.dval = atof(yytext); return NUMBER;}
+/* {yylval.dval = yytext; return NUMBER; currPos += yyleng;} */
 
 "##".*		/* Comments */
 
