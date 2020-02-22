@@ -1105,7 +1105,7 @@ YY_RULE_SETUP
 case 51:
 YY_RULE_SETUP
 #line 81 "mini_l.lex"
-{currPos += yyleng; yylval.dval = atof(yytext); return NUMBER;}
+{currPos += yyleng; yylval.dval = atoi(yytext); return NUMBER;}
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
@@ -2132,7 +2132,6 @@ void yyfree (void * ptr )
 
 
 int yyparse();
-
 int main(int argc, char* argv[])
 {
   if (argc == 2) 

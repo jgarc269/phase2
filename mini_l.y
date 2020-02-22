@@ -11,7 +11,7 @@
   char* ival;
   double dval;
 }
-
+%error-verbose
 %start prog_start
 
 %token <ival> IDENT
@@ -25,7 +25,7 @@
 %left AND OR SUB ADD MULT DIV MOD
 %left EQ NEQ LT GT LTE GTE
 
-%right ASSIGN NOT UMINUS
+%right ASSIGN NOT
 
 %%
 
@@ -44,14 +44,14 @@ Declaration_loop: 	Declaration SEMICOLON Declaration_loop {printf("Declaration_l
 					;
 
 Declaration:	Ident_loop COLON INTEGER {printf("Declaration -> Ident_loop COLON INTEGER\n");}
-				| Ident_loop COLON ARRAY L_SQUARE_BRACKET NUMBER %d R_SQUARE_BRACKET OF INTEGER {printf("Declaration -> Ident_loop COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER\n", $5);}
+				| Ident_loop COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER {printf("Declaration -> Ident_loop COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER\n");}
 				;
 
 Ident_loop: 	Ident {printf("Ident_loop -> Ident \n");}
 				| Ident COMMA Ident_loop {printf("Ident_loop -> Ident COMMA Ident_loop\n");}
 				;
 
-Statment: 	Statement1 {printf("Statement -> Statement1\n");}
+Statement: 	Statement1 {printf("Statement -> Statement1\n");}
 			| Statement2 {printf("Statement -> Statement2\n");}
 			| Statement3 {printf("Statement -> Statement3\n");}
 			| Statement4 {printf("Statement -> Statement4\n");}
@@ -112,7 +112,7 @@ Relation-Expr:		NOT Relation-Expr_loop {printf("Relation-Expr -> NOT Relation-Ex
 Relation-Expr_loop: 	Expression Comp Expression {printf("Relation-Expr_loop -> Expression Comp Expression\n");}
                  		| TRUE	{printf("Relation-Expr_loop -> TRUE\n");}
 						| FALSE {printf("Relation-Expr_loop -> FALSE\n");}
-						| L_PAREN Bool-Exp R_PAREN {printf("Relation-Expr_loop -> L_PAREN Bool-Exp R_PAREN\n");}
+						| L_PAREN Bool-Expr R_PAREN {printf("Relation-Expr_loop -> L_PAREN Bool-Expr R_PAREN\n");}
 						;
 		
 Comp: 		EQ {printf("Comp -> EQ\n");}
@@ -142,9 +142,9 @@ Multiplicative-Expr:		Term  {printf("Multiplicative-Expr -> Term\n");}
 Term:		 Var {printf("Term -> Var\n");}
 			| NUMBER {printf("Term -> NUMBER\n");}
 			| L_PAREN Expression R_PAREN {printf("Term -> L_PAREN Expression R_PAREN\n");}
-			| UMINUS Var {printf("Term -> UMINUS Var\n");}
-			| UMINUS NUMBER {printf("Term -> UMINUS NUMBER\n");}
-			| UMINUS L_PAREN Expression R_PAREN {printf("Term -> UMINUS L_PAREN Expression R_PAREN\n");}
+			| SUB Var {printf("Term -> SUB Var\n");}
+			| SUB NUMBER {printf("Term -> SUBB NUMBER\n");}
+			| SUB L_PAREN Expression R_PAREN {printf("Term -> SUB L_PAREN Expression R_PAREN\n");}
 			| Ident L_PAREN Expression_loop R_PAREN {printf("Term -> Ident L_PAREN Expression R_PAREN\n");}
 			;
 
@@ -160,7 +160,8 @@ Ident:      IDENT
 			{printf("Ident -> IDENT %s \n", $1);}
 %%
 
-void yyerror(const char* msg) {
+void yyerror(const char* msg)
+{
   extern int currLine;
   extern char* yytext;
 

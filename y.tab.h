@@ -93,8 +93,7 @@ extern int yydebug;
     LTE = 303,
     GTE = 304,
     ASSIGN = 305,
-    NOT = 306,
-    UMINUS = 307
+    NOT = 306
   };
 #endif
 
@@ -108,7 +107,7 @@ union YYSTYPE
   char* ival;
   double dval;
 
-#line 112 "y.tab.h" /* yacc.c:1909  */
+#line 111 "y.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
