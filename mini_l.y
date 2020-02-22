@@ -79,14 +79,14 @@ prog_start:		/*empty*/ {printf("prog_start -> EPSILON\n");}
             	;
 
 Function: 		/*empty*/ {printf("Function -> EPSILON/n");}
-				| FUNCTION IDENT SEMICOLON BEGIN_PARAMS Declaration SEMICOLON END_PARAMS BEGIN_LOCALS Declaration SEMICOLON END_LOCALS BEGIN_BODY Statement SEMICOLON END_BODY{printf("Function -> FUNCTION IDENT SEMICOLON BEGIN_PARAMS Declaration END_PARAMS BEGIN_LOCALS Declaration END_LOCALS BEGIN_BODY Statement END_BODY\n");}
+				| FUNCTION Ident SEMICOLON BEGIN_PARAMS Declaration SEMICOLON END_PARAMS BEGIN_LOCALS Declaration SEMICOLON END_LOCALS BEGIN_BODY Statement SEMICOLON END_BODY{printf("Function -> FUNCTION Ident SEMICOLON BEGIN_PARAMS Declaration END_PARAMS BEGIN_LOCALS Declaration END_LOCALS BEGIN_BODY Statement END_BODY\n");}
 				;
 
 Declaration:	/*empty*/ {printf("Declaration -> EPSILON/n");}
-				| IDENT COLON INTEGER {printf("Declaration -> IDENT COLON INTEGER/n");}
-				| IDENT COMMA IDENT COLON INTEGER {printf("Declaration -> IDENT COMMA IDENT COLON INTEGER/n");}
-				| IDENT COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER {printf("Declaration -> IDENT COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER/n");}
-				| IDENT COMMA IDENT COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER {printf("Declaration -> IDENT COMMA IDENT COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER/n");}
+				| Ident COLON INTEGER {printf("Declaration -> Ident COLON INTEGER/n");}
+				| Ident COMMA Ident COLON INTEGER {printf("Declaration -> Ident COMMA Ident COLON INTEGER/n");}
+				| Ident COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER {printf("Declaration -> Ident COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER/n");}
+				| Ident COMMA Ident COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER {printf("Declaration -> Ident COMMA Ident COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER/n");}
 
 				| Declaration SEMICOLON Declaration {printf("Declaration -> Declaration SEMICOLON Declaration/n");}
 				;
@@ -155,17 +155,17 @@ Multiplicative-Expr:		/*empty*/ {printf("Multiplicative-Expr -> EPSILON/n");}
 
 Term:		/*empty*/ {printf("Term -> EPSILON/n");}
 			| Var {printf("Term -> Var/n");}
-			| NUMBER {printf("Term -> NUMBER %d/n", $1);}
+			| NUMBER {printf("Term -> NUMBER/n");}
 			| L_PAREN Expression R_PAREN {printf("Term -> L_PAREN Expression R_PAREN/n");}
 			| UMINUS Var {printf("Term -> UMINUS Var/n");}
 			| UMINUS NUMBER {printf("Term -> UMINUS NUMBER/n");}
 			| UMINUS L_PAREN Expression R_PAREN {printf("Term -> UMINUS L_PAREN Expression R_PAREN/n");}
-			| IDENT L_PAREN Expression R_PAREN {printf("Term -> IDENT L_PAREN Expression R_PAREN/n");}
+			| Ident L_PAREN Expression R_PAREN {printf("Term -> Ident L_PAREN Expression R_PAREN/n");}
 			;
 
 Var:		/*empty*/ {printf("Var -> EPSILON/n");}
-			| IDENT {printf("Var -> IDENT/n");}
-			| IDENT L_PAREN Expression R_PAREN {printf("Var -> IDENT L_PAREN Expression R_PAREN/n");}
+			| Ident {printf("Var -> Ident/n");}
+			| Ident L_PAREN Expression R_PAREN {printf("Var -> Ident L_PAREN Expression R_PAREN/n");}
 			| Var COMMA Var {printf("Var -> Var COMMA/n");}
 			;
 
