@@ -155,7 +155,7 @@ Multiplicative-Expr:		/*empty*/ {printf("Multiplicative-Expr -> EPSILON/n");}
 
 Term:		/*empty*/ {printf("Term -> EPSILON/n");}
 			| Var {printf("Term -> Var/n");}
-			| NUMBER {printf("Term -> NUMBER/n");}
+			| NUMBER {printf("Term -> NUMBER %d/n", $1);}
 			| L_PAREN Expression R_PAREN {printf("Term -> L_PAREN Expression R_PAREN/n");}
 			| UMINUS Var {printf("Term -> UMINUS Var/n");}
 			| UMINUS NUMBER {printf("Term -> UMINUS NUMBER/n");}
