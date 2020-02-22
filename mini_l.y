@@ -13,6 +13,7 @@
 }
 
 %start prog_start
+
 %token <ival> IDENT
 %token <dval> NUMBER
 
@@ -72,13 +73,13 @@
 
 /* Grammer Rules */
 
-prog_start:		Function pro_start {printf("pro_start -> Function pro_start\n");} 
-				| Function {printf("pro_start -> Function\n");} 
-            	| {printf("prog_start -> EPSILON\n");}
+prog_start:		/*empty*/ {printf("prog_start -> EPSILON\n");}
+				| Function prog_start {printf("prog_start -> Function pro_start\n");} 
+				| Function {printf("prog_start -> Function\n");} 
             	;
 
 Function: 		/*empty*/ {printf("Function -> EPSILON/n");}
-				| FUNCTION IDENT SEMICOLON BEGIN_PARAMS Declaration SEMICOLON END_PARAMS BEGIN_LOCALS Declaration SEMICOLON END_LOCALS BEGIN_BODY Statement SEMICOLON ENDBODY{printf("Function -> FUNCTION IDENT SEMICOLON BEGIN_PARAMS Declaration END_PARAMS BEGIN_LOCALS Declaration END_LOCALS BEGIN_BODY Statement END_BODY\n");}
+				| FUNCTION IDENT SEMICOLON BEGIN_PARAMS Declaration SEMICOLON END_PARAMS BEGIN_LOCALS Declaration SEMICOLON END_LOCALS BEGIN_BODY Statement SEMICOLON END_BODY{printf("Function -> FUNCTION IDENT SEMICOLON BEGIN_PARAMS Declaration END_PARAMS BEGIN_LOCALS Declaration END_LOCALS BEGIN_BODY Statement END_BODY\n");}
 				;
 
 Declaration:	/*empty*/ {printf("Declaration -> EPSILON/n");}
