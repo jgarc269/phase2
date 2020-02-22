@@ -73,10 +73,9 @@
 
 /* Grammer Rules */
 
-prog_start:		/*empty*/ {printf("prog_start -> EPSILON\n");}
-				| Function prog_start {printf("prog_start -> Function pro_start\n");} 
-				| Function {printf("prog_start -> Function\n");} 
-            	;
+
+prog_start:	Function {printf("prog_start -> Functions\n");}
+		;
 
 Function: 		/*empty*/ {printf("Function -> EPSILON/n");}
 				| FUNCTION Ident SEMICOLON BEGIN_PARAMS Declaration SEMICOLON END_PARAMS BEGIN_LOCALS Declaration SEMICOLON END_LOCALS BEGIN_BODY Statement SEMICOLON END_BODY{printf("Function -> FUNCTION Ident SEMICOLON BEGIN_PARAMS Declaration END_PARAMS BEGIN_LOCALS Declaration END_LOCALS BEGIN_BODY Statement END_BODY\n");}

@@ -89,14 +89,3 @@ IDENT  {LETTERS}(_?({LETTERS}|{DIGIT}))*
 
 %%
 
-int main(int argc, char ** argv)
-{
-
-   if(yyin == NULL)
-   {
-	 yyin = stdin;
-   }
-
-   yylex();
-
-}

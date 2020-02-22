@@ -2131,15 +2131,4 @@ void yyfree (void * ptr )
 
 
 
-int main(int argc, char ** argv)
-{
-
-   if(yyin == NULL)
-   {
-	 yyin = stdin;
-   }
-
-   yylex();
-
-}
 
