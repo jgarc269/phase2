@@ -78,7 +78,7 @@ IDENT  {LETTERS}(_?({LETTERS}|{DIGIT}))*
 
 {IDENT}(_)	 {printf("Error at line %d, column %d: identifier \"%s\" cannot end with an underscore\n", currLine, currPos, yytext); exit(0);}
 
-{DIGIT}+     {currPos += yyleng; yylval.dval = atof(yytext); return NUMBER;}
+{DIGIT}+     {currPos += yyleng; yylval.dval = atoi(yytext); return NUMBER;}
 
 "##".*		/* Comments */
 
@@ -89,3 +89,22 @@ IDENT  {LETTERS}(_?({LETTERS}|{DIGIT}))*
 .              {printf("Error at line %d, column %d: unrecognized symbol \"%s\"\n", currLine, currPos, yytext); exit(0);}
 
 %%
+
+int yyparse();
+int main(int argc, char* argv[])
+{
+  if (argc == 2) 
+   {
+    yyin = fopen(argv[1], "r");
+    if (yyin == 0) 
+    {
+      printf("Cannot Open File: %s\n", argv[1]);
+      exit(1);
+    }
+  }
+  else
+    yyin = stdin;
+
+  yyparse();
+  return 0;
+}

@@ -1502,17 +1502,11 @@ yyreturn:
 #line 184 "mini_l.y" /* yacc.c:1906  */
 
 
-int main(int argc, char **argv) {
-   if (argc > 1) {
-      yyin = fopen(argv[1], "r");
-      if (yyin == NULL){
-         printf("syntax: %s filename\n", argv[0]);
-      }//end if
-   }//end if
-   yyparse(); // Calls yylex() for tokens.
-   return 0;
+void yyerror(const char* msg) {
+  extern int currLine;
+  extern char* yytext;
+
+  printf("ERROR: %s at symbol \"%s\" on line %d\n", msg, yytext, currLine);
+  exit(1);
 }
 
-void yyerror(const char *msg) {
-   printf("** Line %d, position %d: %s\n", currLine, currPos, msg);
-}
