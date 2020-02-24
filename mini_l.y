@@ -36,7 +36,7 @@ prog_start:	%empty {printf("prog_start -> EPSILON\n");}
 		| Function prog_start {printf("prog_start -> Function prog_start\n");}
 			;
 
-Function: 		FUNCTION Ident SEMICOLON BEGIN_PARAMS Declaration_loop SEMICOLON END_PARAMS BEGIN_LOCALS Declaration_loop SEMICOLON END_LOCALS BEGIN_BODY Statement_loop SEMICOLON END_BODY{printf("Function -> FUNCTION Ident SEMICOLON BEGIN_PARAMS Declaration_loop END_PARAMS BEGIN_LOCALS Declaration_loop END_LOCALS BEGIN_BODY Statement_loop END_BODY\n");}
+Function: 		FUNCTION Ident SEMICOLON BEGIN_PARAMS Declaration_loop END_PARAMS BEGIN_LOCALS Declaration_loop SEMICOLON END_LOCALS BEGIN_BODY Statement_loop SEMICOLON END_BODY{printf("Function -> FUNCTION Ident SEMICOLON BEGIN_PARAMS Declaration_loop END_PARAMS BEGIN_LOCALS Declaration_loop END_LOCALS BEGIN_BODY Statement_loop END_BODY\n");}
 				;
 
 Declaration_loop: 	Declaration SEMICOLON Declaration_loop {printf("Declaration_loop -> Declaration SEMICOLON Declaration_loop\n");}
