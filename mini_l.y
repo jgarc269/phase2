@@ -21,11 +21,15 @@
 %token INTEGER ARRAY OF IF THEN ENDIF ELSE WHILE DO FOR BEGINLOOP ENDLOOP CONTINUE
 %token READ WRITE TRUE FALSE RETURN SEMICOLON COLON COMMA L_PAREN R_PAREN
 %token L_SQUARE_BRACKET R_SQUARE_BRACKET
+%token AND OR SUB ADD MULT DIV MOD
+%token EQ NEQ LT GT LTE GTE ASSIGN NOT
 
 %left AND OR SUB ADD MULT DIV MOD
 %left EQ NEQ LT GT LTE GTE
 
 %right ASSIGN NOT
+
+%nonassoc UMINUS
 
 %%
 
@@ -95,19 +99,18 @@ Statement_loop: 	Statement SEMICOLON Statement_loop {printf("Statement_loop -> S
 
 ElseStatement: 		ELSE Statement_loop {printf("ElseStatement -> ELSE Statement_loop\n");}
 					| %empty {printf("ElseStatement -> EPSILON\n");}
-					;
+					
 
 Bool-Expr:		Relation-And-Expr {printf("Bool-Expr -> Relation-And-Expr\n");}
-				;
 
 Relation-And-Expr:		Relation-Expr {printf("Relation-And-Expr -> Relation-Expr\n");}
 						| Relation-Expr AND Relation-And-Expr  {printf("Relation-And-Expr -> Relation-Expr AND Relation-And-Expr\n");}
-						;
+						
 
 
 Relation-Expr:		NOT Relation-Expr_loop {printf("Relation-Expr -> NOT Relation-Expr_loop\n");}
 					| Relation-Expr_loop {printf("Relation-Expr -> Relation-Expr_loop\n");}
-					;
+					
 
 Relation-Expr_loop: 	Expression Comp Expression {printf("Relation-Expr_loop -> Expression Comp Expression\n");}
                  		| TRUE	{printf("Relation-Expr_loop -> TRUE\n");}
@@ -129,9 +132,9 @@ Expression: 		 Multiplicative-Expr {printf("Expression -> Multiplicative-Expr\n"
 					;
 
 Expression_loop: 	Expression COMMA Expression_loop {printf("Expression -> COMMA Expression\n");}
-					| Expression {printf("Expression_loop -> Expression\n");};
-					| %empty {printf("Expression_loop -> EPSILON\n");};
-					;
+					| Expression {printf("Expression_loop -> Expression\n");}
+					| %empty {printf("Expression_loop -> EPSILON\n");}
+					
 
 Multiplicative-Expr:		Term  {printf("Multiplicative-Expr -> Term\n");}
 							| MOD Term Multiplicative-Expr {printf("Multiplicative-Expr -> Term MOD Term\n");}
