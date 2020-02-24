@@ -38,10 +38,9 @@
 
 prog_start:	%empty {printf("prog_start -> EPSILON\n");}
 		| Function prog_start {printf("prog_start -> Function prog_start\n");}
-			;
+		;
 
-Function: 		FUNCTION Ident SEMICOLON BEGIN_PARAMS Declaration_loop END_PARAMS BEGIN_LOCALS Declaration_loop END_LOCALS BEGIN_BODY Statement_loop END_BODY{printf("Function -> FUNCTION Ident SEMICOLON BEGIN_PARAMS Declaration_loop END_PARAMS BEGIN_LOCALS Declaration_loop END_LOCALS BEGIN_BODY Statement_loop END_BODY\n");}
-				;
+Function: 		FUNCTION Ident SEMICOLON BEGIN_PARAMS Declaration_loop END_PARAMS BEGIN_LOCALS Declaration_loop END_LOCALS BEGIN_BODY Statement_loop END_BODY{printf("Function -> FUNCTION Ident SEMICOLON BEGIN_PARAMS Declaration_loop END_PARAMS BEGIN_LOCALS Declaration_loop END_LOCALS BEGIN_BODY Statement_loop END_BODY\n");};
 
 Declaration_loop: 	Declaration SEMICOLON Declaration_loop {printf("Declaration_loop -> Declaration SEMICOLON Declaration_loop\n");}
 					| %empty {printf("Declaration_loop -> EPSILON\n");}
@@ -69,16 +68,16 @@ Statement: 	Statement1 {printf("Statement -> Statement1\n");}
 Statement1:  	Var ASSIGN Expression {printf("Statement1 -> Var ASSIGN Expression\n");}
 				;
 		
-Statement2: 	IF Bool-Expr THEN Statement_loop ElseStatement ENDIF {printf("Statement -> IF Bool-Expr THEN Statement_loop ElseStatement ENDIF\n");}
+Statement2: 	IF Bool_Expr THEN Statement_loop ElseStatement ENDIF {printf("Statement -> IF Bool_Expr THEN Statement_loop ElseStatement ENDIF\n");}
 				;
 
-Statement3: 	WHILE Bool-Expr BEGINLOOP Statement_loop ENDLOOP {printf("Statement -> WHILE Bool-Expr BEGINLOOP Statement_loop SEMICOLON ENDLOOP\n");}
+Statement3: 	WHILE Bool_Expr BEGINLOOP Statement_loop ENDLOOP {printf("Statement -> WHILE Bool_Expr BEGINLOOP Statement_loop SEMICOLON ENDLOOP\n");}
 				;
 
-Statement4:		DO BEGINLOOP Statement_loop ENDLOOP WHILE Bool-Expr {printf("Statement -> DO BEGINLOOP Statement_loop SEMICOLON ENDLOOP WHILE Bool-Expr\n");}
+Statement4:		DO BEGINLOOP Statement_loop ENDLOOP WHILE Bool_Expr {printf("Statement -> DO BEGINLOOP Statement_loop SEMICOLON ENDLOOP WHILE Bool_Expr\n");}
 				;
 
-Statement5: 	FOR Var ASSIGN NUMBER SEMICOLON Bool-Expr SEMICOLON Var ASSIGN Expression BEGINLOOP Statement_loop ENDLOOP {printf("Statement -> FOR Var ASSIGN NUMBER SEMICOLON Bool-Expr SEMICOLON Var ASSIGN Expression BEGINLOOP Statement_loop SEMICOLON ENDLOOP\n");}
+Statement5: 	FOR Var ASSIGN NUMBER SEMICOLON Bool_Expr SEMICOLON Var ASSIGN Expression BEGINLOOP Statement_loop ENDLOOP {printf("Statement -> FOR Var ASSIGN NUMBER SEMICOLON Bool_Expr SEMICOLON Var ASSIGN Expression BEGINLOOP Statement_loop SEMICOLON ENDLOOP\n");}
 				;
 
 Statement6: 	READ Var_loop {printf("Statement -> READ Var_loop\n");}
@@ -98,25 +97,25 @@ Statement_loop: 	Statement SEMICOLON Statement_loop {printf("Statement_loop -> S
 					;
 
 ElseStatement: 		ELSE Statement_loop {printf("ElseStatement -> ELSE Statement_loop\n");}
-					| %empty {printf("ElseStatement -> EPSILON\n");}
-					
+					| %empty {printf("ElseStatement -> EPSILON\n");}					
+					;
 
-Bool-Expr:		Relation-And-Expr {printf("Bool-Expr -> Relation-And-Expr\n");}
+Bool_Expr:		Relation_And_Expr {printf("Bool_Expr -> Relation_And_Expr\n");};
 
-Relation-And-Expr:		Relation-Expr {printf("Relation-And-Expr -> Relation-Expr\n");}
-						| Relation-Expr AND Relation-And-Expr  {printf("Relation-And-Expr -> Relation-Expr AND Relation-And-Expr\n");}
-						
+Relation_And_Expr:		Relation_Expr {printf("Relation_And_Expr -> Relation_Expr\n");}
+						| Relation_Expr AND Relation_And_Expr  {printf("Relation_And_Expr -> Relation_Expr AND Relation_And_Expr\n");}
+						;						
 
 
-Relation-Expr:		NOT Relation-Expr_loop {printf("Relation-Expr -> NOT Relation-Expr_loop\n");}
-					| Relation-Expr_loop {printf("Relation-Expr -> Relation-Expr_loop\n");}
-					
+Relation_Expr:		NOT Relation_Expr_loop {printf("Relation_Expr -> NOT Relation_Expr_loop\n");}
+					| Relation_Expr_loop {printf("Relation_Expr -> Relation_Expr_loop\n");}
+					;
 
-Relation-Expr_loop: 	Expression Comp Expression {printf("Relation-Expr_loop -> Expression Comp Expression\n");}
-                 		| TRUE	{printf("Relation-Expr_loop -> TRUE\n");}
-						| FALSE {printf("Relation-Expr_loop -> FALSE\n");}
-						| L_PAREN Bool-Expr R_PAREN {printf("Relation-Expr_loop -> L_PAREN Bool-Expr R_PAREN\n");}
-						;
+Relation_Expr_loop: 	Expression Comp Expression {printf("Relation_Expr_loop -> Expression Comp Expression\n");}
+                 		| TRUE	{printf("Relation_Expr_loop -> TRUE\n");}
+				| FALSE {printf("Relation_Expr_loop -> FALSE\n");}
+				| L_PAREN Bool_Expr R_PAREN {printf("Relation_Expr_loop -> L_PAREN Bool_Expr R_PAREN\n");}
+				;
 		
 Comp: 		EQ {printf("Comp -> EQ\n");}
 			| NEQ {printf("Comp -> NEQ\n");}
@@ -126,9 +125,9 @@ Comp: 		EQ {printf("Comp -> EQ\n");}
 			| GTE {printf("Comp -> GTE\n");}
 			;
 
-Expression: 		 Multiplicative-Expr {printf("Expression -> Multiplicative-Expr\n");}
-					| Multiplicative-Expr SUB Expression {printf("Expression -> Multiplicative-Expr SUB Expression\n");}
-					| Multiplicative-Expr ADD Expression {printf("Expression -> Multiplicative-Expr ADD Expression\n");}
+Expression: 		 Multiplicative_Expr {printf("Expression -> Multiplicative_Expr\n");}
+					| Multiplicative_Expr SUB Expression {printf("Expression -> Multiplicative_Expr SUB Expression\n");}
+					| Multiplicative_Expr ADD Expression {printf("Expression -> Multiplicative_Expr ADD Expression\n");}
 					;
 
 Expression_loop: 	Expression COMMA Expression_loop {printf("Expression -> COMMA Expression\n");}
@@ -136,10 +135,10 @@ Expression_loop: 	Expression COMMA Expression_loop {printf("Expression -> COMMA 
 					| %empty {printf("Expression_loop -> EPSILON\n");}
 					
 
-Multiplicative-Expr:		Term  {printf("Multiplicative-Expr -> Term\n");}
-							| MOD Term Multiplicative-Expr {printf("Multiplicative-Expr -> Term MOD Term\n");}
-							| DIV Term Multiplicative-Expr {printf("Multiplicative-Expr -> Term MOD Term\n");}
-							| MULT Term Multiplicative-Expr {printf("Multiplicative-Expr-> Term MOD Term\n");} 
+Multiplicative_Expr:		Term  {printf("Multiplicative_Expr -> Term\n");}
+							| MOD Term Multiplicative_Expr {printf("Multiplicative_Expr -> Term MOD Term\n");}
+							| DIV Term Multiplicative_Expr {printf("Multiplicative_Expr -> Term MOD Term\n");}
+							| MULT Term Multiplicative_Expr {printf("Multiplicative_Expr-> Term MOD Term\n");} 
 							;
 
 Term:		 Var {printf("Term -> Var\n");}
@@ -160,7 +159,7 @@ Var_loop: 		Var {printf("Var_loop -> Var\n");}
 				;
 
 Ident:      IDENT
-			{printf("Ident -> IDENT %s \n", $1);}
+			{printf("Ident -> IDENT %s \n", $1);};
 %%
 
 void yyerror(const char* msg)
