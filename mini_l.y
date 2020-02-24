@@ -77,10 +77,10 @@ Statement4:		DO BEGINLOOP Statement_loop SEMICOLON ENDLOOP WHILE Bool-Expr {prin
 Statement5: 	FOR Var ASSIGN NUMBER SEMICOLON Bool-Expr SEMICOLON Var ASSIGN Expression BEGINLOOP Statement_loop SEMICOLON ENDLOOP {printf("Statement -> FOR Var ASSIGN NUMBER SEMICOLON Bool-Expr SEMICOLON Var ASSIGN Expression BEGINLOOP Statement_loop SEMICOLON ENDLOOP\n");}
 				;
 
-Statement6: 	READ Var {printf("Statement -> READ Var\n");}
+Statement6: 	READ Var_loop {printf("Statement -> READ Var_loop\n");}
 				;
 
-Statement7: 	WRITE Var {printf("Statement -> WRITE Var\n");}
+Statement7: 	WRITE Var_loop {printf("Statement -> WRITE Var_loop\n");}
 				;
 
 Statement8: 	CONTINUE {printf("Statement -> CONTINUE\n");}
@@ -141,14 +141,14 @@ Multiplicative-Expr:		Term  {printf("Multiplicative-Expr -> Term\n");}
 
 Term:		 Var {printf("Term -> Var\n");}
 			| NUMBER {printf("Term -> NUMBER %d\n", $1);}
-			| L_PAREN Expression R_PAREN {printf("Term -> L_PAREN Expression R_PAREN\n");}
 			| SUB Var {printf("Term -> SUB Var\n");}
 			| SUB NUMBER {printf("Term -> SUB NUMBER %d\n", $2);}
+			| L_PAREN Expression R_PAREN {printf("Term -> L_PAREN Expression R_PAREN\n");}
 			| SUB L_PAREN Expression R_PAREN {printf("Term -> SUB L_PAREN Expression R_PAREN\n");}
 			| Ident L_PAREN Expression_loop R_PAREN {printf("Term -> Ident L_PAREN Expression R_PAREN\n");}
 			;
 
-Var:			 Ident {printf("Var -> Ident\n");}
+Var:		  Ident {printf("Var -> Ident\n");}
 				| Ident L_SQUARE_BRACKET Expression R_SQUARE_BRACKET {printf("Var -> Ident L_SQUARE_BRACKET Expression R_SQUARE_BRACKET\n");}
 				;
 
