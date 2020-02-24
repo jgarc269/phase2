@@ -68,13 +68,13 @@ Statement1:  	Var ASSIGN Expression {printf("Statement1 -> Var ASSIGN Expression
 Statement2: 	IF Bool-Expr THEN Statement_loop ElseStatement ENDIF {printf("Statement -> IF Bool-Expr THEN Statement_loop ElseStatement ENDIF\n");}
 				;
 
-Statement3: 	WHILE Bool-Expr BEGINLOOP Statement_loop SEMICOLON ENDLOOP {printf("Statement -> WHILE Bool-Expr BEGINLOOP Statement_loop SEMICOLON ENDLOOP\n");}
+Statement3: 	WHILE Bool-Expr BEGINLOOP Statement_loop ENDLOOP {printf("Statement -> WHILE Bool-Expr BEGINLOOP Statement_loop SEMICOLON ENDLOOP\n");}
 				;
 
-Statement4:		DO BEGINLOOP Statement_loop SEMICOLON ENDLOOP WHILE Bool-Expr {printf("Statement -> DO BEGINLOOP Statement_loop SEMICOLON ENDLOOP WHILE Bool-Expr\n");}
+Statement4:		DO BEGINLOOP Statement_loop ENDLOOP WHILE Bool-Expr {printf("Statement -> DO BEGINLOOP Statement_loop SEMICOLON ENDLOOP WHILE Bool-Expr\n");}
 				;
 
-Statement5: 	FOR Var ASSIGN NUMBER SEMICOLON Bool-Expr SEMICOLON Var ASSIGN Expression BEGINLOOP Statement_loop SEMICOLON ENDLOOP {printf("Statement -> FOR Var ASSIGN NUMBER SEMICOLON Bool-Expr SEMICOLON Var ASSIGN Expression BEGINLOOP Statement_loop SEMICOLON ENDLOOP\n");}
+Statement5: 	FOR Var ASSIGN NUMBER SEMICOLON Bool-Expr SEMICOLON Var ASSIGN Expression BEGINLOOP Statement_loop ENDLOOP {printf("Statement -> FOR Var ASSIGN NUMBER SEMICOLON Bool-Expr SEMICOLON Var ASSIGN Expression BEGINLOOP Statement_loop SEMICOLON ENDLOOP\n");}
 				;
 
 Statement6: 	READ Var_loop {printf("Statement -> READ Var_loop\n");}
