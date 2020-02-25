@@ -100,7 +100,9 @@ ElseStatement: 		ELSE Statement_loop {printf("ElseStatement -> ELSE Statement_lo
 					| %empty {printf("ElseStatement -> EPSILON\n");}					
 					;
 
-Bool_Expr:		Relation_And_Expr {printf("Bool_Expr -> Relation_And_Expr\n");};
+Bool_Expr:		Relation_And_Expr {printf("Bool_Expr -> Relation_And_Expr\n");}
+					  | Relation_Expr OR Bool_Expr {printf("Bool_Expr -> Relation_Expr OR Bool_Expr\n");}
+					  ; 
 
 Relation_And_Expr:		Relation_Expr {printf("Relation_And_Expr -> Relation_Expr\n");}
 						| Relation_Expr AND Relation_And_Expr  {printf("Relation_And_Expr -> Relation_Expr AND Relation_And_Expr\n");}
@@ -136,9 +138,9 @@ Expression_loop: 	Expression COMMA Expression_loop {printf("Expression -> COMMA 
 					
 
 Multiplicative_Expr:		Term  {printf("Multiplicative_Expr -> Term\n");}
-							| MOD Term Multiplicative_Expr {printf("Multiplicative_Expr -> Term MOD Term\n");}
-							| DIV Term Multiplicative_Expr {printf("Multiplicative_Expr -> Term MOD Term\n");}
-							| MULT Term Multiplicative_Expr {printf("Multiplicative_Expr-> Term MOD Term\n");} 
+							| Term MOD Multiplicative_Expr {printf("Multiplicative_Expr -> Term MOD Term\n");}
+							| Term DIV Multiplicative_Expr {printf("Multiplicative_Expr -> Term DIV Term\n");}
+							| Term MULT Multiplicative_Expr {printf("Multiplicative_Expr-> Term MULT Term\n");} 
 							;
 
 Term:		 Var {printf("Term -> Var\n");}
